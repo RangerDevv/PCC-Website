@@ -57,7 +57,7 @@ const CONFIG = {
   function animateCursor() {
     cursorX += (mouseX - cursorX) * 0.15;
     cursorY += (mouseY - cursorY) * 0.15;
-    cursor.style.transform = `translate(${cursorX - 12}px, ${cursorY - 12}px)`;
+    cursor.style.transform = `translate(${cursorX - 18}px, ${cursorY - 18}px)`;
     requestAnimationFrame(animateCursor);
   }
 

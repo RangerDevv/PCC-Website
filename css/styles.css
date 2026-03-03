@@ -45,8 +45,16 @@ body {
   cursor: none;
 }
 
+/* Hide default cursor on ALL interactive elements so custom cursor is seamless */
+a, button, input, textarea, select, label, [role="button"], .btn, .btn-donate-nav, .hamburger, .scroll-top, .amount-btn, .nav-links a, .mobile-nav a, .form-checkbox {
+  cursor: none !important;
+}
+
 @media (pointer: coarse) {
   body { cursor: auto; }
+  a, button, input, textarea, select, label, [role="button"], .btn, .btn-donate-nav, .hamburger, .scroll-top, .amount-btn, .nav-links a, .mobile-nav a, .form-checkbox {
+    cursor: auto !important;
+  }
 }
 
 a { text-decoration: none; color: inherit; }
@@ -56,8 +64,8 @@ button, input, textarea, select { font-family: inherit; }
 
 /* --- CUSTOM CURSOR (Desktop only) --- */
 .custom-cursor {
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
   position: fixed;
   top: 0;
   left: 0;
@@ -260,17 +268,21 @@ button, input, textarea, select { font-family: inherit; }
 .btn-donate-nav {
   background: var(--orange);
   color: var(--white-pure) !important;
-  padding: 0.6rem 1.5rem;
+  padding: 0.65rem 1.75rem;
   border-radius: var(--radius-pill);
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   border: none;
-  cursor: pointer;
   transition: all var(--transition-fast);
   white-space: nowrap;
+  margin-left: 0.75rem;
+  line-height: 1.5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-donate-nav:hover {
