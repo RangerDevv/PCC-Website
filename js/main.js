@@ -62,6 +62,21 @@ const CONFIG = {
   }
 
   animateCursor();
+
+  // Cursor hover state — scale up & change color on interactive elements
+  const interactiveSelectors = 'a, button, input, textarea, select, .btn, .btn-donate-nav, .amount-btn, .glass-card, .sponsor-tier-card, .rule-card, .info-card, .donate-tier, .contact-item, .money-card, [role="button"]';
+
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest(interactiveSelectors)) {
+      cursor.classList.add('hovering');
+    }
+  });
+
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.closest(interactiveSelectors)) {
+      cursor.classList.remove('hovering');
+    }
+  });
 })();
 
 // =============================================
