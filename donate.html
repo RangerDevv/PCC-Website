@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donate — Pitt Charity Cup 2026</title>
+  <meta name="description" content="Donate to the Pitt Charity Cup 2026. Every dollar goes to providing cricket equipment to kids in need.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#FF5C1A" opacity="0.9"/><path d="M5 12c2.5-4 5-4 7 0s5 4 7 0" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M5 12c2.5 4 5 4 7 0s5-4 7 0" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/></svg>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo" aria-label="Pitt Charity Cup — Home">
+      <div class="logo-badge">PC</div>
+      <span class="logo-text">PITT CHARITY CUP</span>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="tournament.html">Tournament</a>
+      <a href="register.html">Register</a>
+      <a href="sponsors.html">Sponsors</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a href="donate.html" class="btn-donate-nav btn-donate-nav-desktop active">Donate Now 🧡</a>
+    </div>
+    <button class="hamburger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-nav">
+    <a href="about.html">About</a>
+    <a href="tournament.html">Tournament</a>
+    <a href="register.html">Register</a>
+    <a href="sponsors.html">Sponsors</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+    <a href="donate.html" class="btn-donate-nav active">Donate Now 🧡</a>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero hero-inner section-donate-hero">
+    <div class="hero-content reveal">
+      <div class="hero-label">MAKE AN IMPACT</div>
+      <h1 class="hero-title hero-title-large" style="color: var(--white-pure);">DONATE TO<br>THE <span style="color: var(--lime);">CAUSE</span></h1>
+      <!-- TODO: Replace with real donation description -->
+      <p class="hero-description mx-auto" style="text-align:center; color: rgba(255,255,255,0.85);">Insert donation description here. Every dollar you give goes directly to providing cricket equipment and opportunities to kids who need it most.</p>
+    </div>
+  </section>
+
+  <!-- ============ FUNDRAISING PROGRESS ============ -->
+  <section class="section section-dark">
+    <div class="container">
+      <!-- UPDATE RAISED AMOUNT HERE — values come from CONFIG in main.js -->
+      <div class="progress-bar-container reveal">
+        <div class="progress-info">
+          <div>
+            <span class="progress-raised">$0</span>
+            <span style="color: var(--text-muted); font-size: 0.9rem;"> raised</span>
+          </div>
+          <span class="progress-goal">Goal: $1,000</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
+        </div>
+        <div class="progress-donors">0 donors so far</div>
+      </div>
+      <!-- Note: This progress bar is manually updated via CONFIG in main.js until a payment backend is integrated -->
+
+      <!-- ============ DONATION TIERS + FORM ============ -->
+      <div class="donate-layout">
+        <!-- LEFT: What your donation supports -->
+        <div class="reveal-left">
+          <h3 class="section-title" style="font-size: 2rem;">YOUR DONATION <em>Supports</em></h3>
+
+          <div class="donate-tier">
+            <div class="donate-tier-icon">🏏</div>
+            <div>
+              <div class="donate-tier-amount">$25</div>
+              <div class="donate-tier-desc">Provides a cricket bat for a young player</div>
+            </div>
+          </div>
+
+          <div class="donate-tier">
+            <div class="donate-tier-icon">🎽</div>
+            <div>
+              <div class="donate-tier-amount">$50</div>
+              <div class="donate-tier-desc">Covers a full equipment set (bat, ball, pads)</div>
+            </div>
+          </div>
+
+          <div class="donate-tier">
+            <div class="donate-tier-icon">⭐</div>
+            <div>
+              <div class="donate-tier-amount">$100</div>
+              <div class="donate-tier-desc">Sponsors a youth player for a full season</div>
+            </div>
+          </div>
+
+          <div class="donate-tier">
+            <div class="donate-tier-icon">🏢</div>
+            <div>
+              <div class="donate-tier-amount">Corporate Sponsors</div>
+              <div class="donate-tier-desc">Interested in sponsoring? We offer tiered packages with brand visibility and social media promotion.</div>
+              <a href="sponsors.html" style="color: var(--orange); font-weight: 600; font-size: 0.9rem; display: inline-block; margin-top: 0.5rem;">View Sponsorship Tiers →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Donation Form -->
+        <div class="reveal-right">
+          <div class="form-card" style="max-width: none;">
+            <h3 class="section-title" style="font-size: 1.8rem; margin-bottom: 1.5rem;">MAKE A <em>Donation</em></h3>
+
+            <form id="donate-form">
+              <!-- Amount Selector -->
+              <div class="amount-selector">
+                <button type="button" class="amount-btn active" data-amount="25">$25</button>
+                <button type="button" class="amount-btn" data-amount="50">$50</button>
+                <button type="button" class="amount-btn" data-amount="100">$100</button>
+                <button type="button" class="amount-btn" data-amount="custom">Custom</button>
+              </div>
+
+              <input type="number" class="custom-amount-input form-input" placeholder="Enter custom amount ($)" min="1">
+
+              <div class="form-group">
+                <label class="form-label" for="donate-name">Full Name *</label>
+                <input type="text" class="form-input" id="donate-name" name="name" required placeholder="Your full name">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="donate-email">Email *</label>
+                <input type="email" class="form-input" id="donate-email" name="email" required placeholder="you@example.com">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="donate-message">Message (Optional)</label>
+                <textarea class="form-input" id="donate-message" name="message" placeholder="Leave a message of support..."></textarea>
+              </div>
+
+              <button type="submit" class="btn-submit btn-donate-amount">Donate $25 🧡</button>
+              <p class="form-note" style="text-align: center; margin-top: 1rem;">🔒 Secure. You'll receive a payment link via email.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-badge-sm">PC</div>
+        <h3>PITT CHARITY CUP</h3>
+        <p>Insert description about tournament here. The Pitt Charity Cup is a U18 charity cricket tournament dedicated to growing the game and giving back to the Pittsburgh community.</p>
+      </div>
+      <div>
+        <h4>QUICK LINKS</h4>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="tournament.html">Tournament</a>
+          <a href="register.html">Register</a>
+          <a href="donate.html">Donate</a>
+          <a href="sponsors.html">Sponsors</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div>
+        <h4>CONNECT</h4>
+        <div class="footer-social">
+          <a href="#" target="_blank" rel="noopener">📱 @Instagram account name</a>
+          <a href="mailto:pittsburghcharitycricket@gmail.com">📧 pittsburghcharitycricket@gmail.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Pitt Charity Cup. All rights reserved.</p>
+      <p>Made with 🧡 for the Pittsburgh community.</p>
+    </div>
+  </footer>
+
+  <button class="scroll-top" aria-label="Scroll to top">↑</button>
+  <script src="js/main.js"></script>
+</body>
+</html>

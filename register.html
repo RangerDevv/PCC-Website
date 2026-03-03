@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register — Pitt Charity Cup 2026</title>
+  <meta name="description" content="Register for the Pitt Charity Cup 2026. Secure your spot in Pittsburgh's U18 charity cricket tournament.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#FF5C1A" opacity="0.9"/><path d="M5 12c2.5-4 5-4 7 0s5 4 7 0" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M5 12c2.5 4 5 4 7 0s5-4 7 0" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/></svg>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo" aria-label="Pitt Charity Cup — Home">
+      <div class="logo-badge">PC</div>
+      <span class="logo-text">PITT CHARITY CUP</span>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="tournament.html">Tournament</a>
+      <a href="register.html" class="active">Register</a>
+      <a href="sponsors.html">Sponsors</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a href="donate.html" class="btn-donate-nav btn-donate-nav-desktop">Donate Now 🧡</a>
+    </div>
+    <button class="hamburger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-nav">
+    <a href="about.html">About</a>
+    <a href="tournament.html">Tournament</a>
+    <a href="register.html" class="active">Register</a>
+    <a href="sponsors.html">Sponsors</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+    <a href="donate.html" class="btn-donate-nav">Donate Now 🧡</a>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero hero-inner">
+    <div class="hero-bg"></div>
+    <div class="hero-content reveal">
+      <div class="hero-label">JOIN THE TOURNAMENT</div>
+      <h1 class="hero-title hero-title-large">REGISTER <span class="orange">NOW!</span></h1>
+      <p class="hero-description mx-auto" style="text-align:center;">Secure your spot in the Pitt Charity Cup 2026. Fill out the form below to get started!</p>
+    </div>
+  </section>
+
+  <!-- ============ REGISTRATION FORM ============ -->
+  <section class="section section-dark">
+    <div class="container" style="display: flex; justify-content: center;">
+      <div class="form-card reveal" style="width: 100%; max-width: 600px;">
+        <div class="section-label" style="margin-bottom: 1.5rem;">🏏 Player Registration</div>
+
+        <form id="register-form">
+          <div class="form-group">
+            <label class="form-label" for="reg-firstname">First Name *</label>
+            <input type="text" class="form-input" id="reg-firstname" name="firstName" required placeholder="Enter your first name">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-lastname">Last Name *</label>
+            <input type="text" class="form-input" id="reg-lastname" name="lastName" required placeholder="Enter your last name">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-dob">Date of Birth *</label>
+            <input type="date" class="form-input" id="reg-dob" name="dob" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-email">Email *</label>
+            <input type="email" class="form-input" id="reg-email" name="email" required placeholder="you@example.com">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-phone">Phone Number *</label>
+            <input type="tel" class="form-input" id="reg-phone" name="phone" required placeholder="(412) 555-0123">
+          </div>
+
+          <!-- Payment Information Note -->
+          <div class="payment-note">
+            <p><strong>💳 Payment Information</strong></p>
+            <p>Payment details to be confirmed — you'll be contacted after registration.</p>
+          </div>
+
+          <!-- Agreement Checkbox -->
+          <div class="form-group">
+            <label class="form-checkbox">
+              <input type="checkbox" required>
+              <!-- TODO: Insert full agreement text here -->
+              <span>I agree to the tournament rules, code of conduct, and confirm that the player is under 18 years of age. I understand that all registration fees are non-refundable and go directly to charity. [Agreement clause — insert full agreement text here]</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-submit">Submit Registration 🏏</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-badge-sm">PC</div>
+        <h3>PITT CHARITY CUP</h3>
+        <p>Insert description about tournament here. The Pitt Charity Cup is a U18 charity cricket tournament dedicated to growing the game and giving back to the Pittsburgh community.</p>
+      </div>
+      <div>
+        <h4>QUICK LINKS</h4>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="tournament.html">Tournament</a>
+          <a href="register.html">Register</a>
+          <a href="donate.html">Donate</a>
+          <a href="sponsors.html">Sponsors</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div>
+        <h4>CONNECT</h4>
+        <div class="footer-social">
+          <a href="#" target="_blank" rel="noopener">📱 @Instagram account name</a>
+          <a href="mailto:pittsburghcharitycricket@gmail.com">📧 pittsburghcharitycricket@gmail.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Pitt Charity Cup. All rights reserved.</p>
+      <p>Made with 🧡 for the Pittsburgh community.</p>
+    </div>
+  </footer>
+
+  <button class="scroll-top" aria-label="Scroll to top">↑</button>
+  <script src="js/main.js"></script>
+</body>
+</html>

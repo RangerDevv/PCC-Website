@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pitt Charity Cup 2026 — Compete for a Cause</title>
+  <meta name="description" content="Pitt Charity Cup 2026 — A U18 charity cricket tournament in Pittsburgh, PA. Compete for a cause. Turning passion for cricket into real impact.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ============ LOADING SCREEN ============ -->
+  <div class="loading-screen" aria-hidden="true">
+    <div class="loading-trail"></div>
+    <div class="loading-ball">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="18" fill="#FF5C1A"/>
+        <path d="M8 20c4-6 8-6 12 0s8 6 12 0" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M8 20c4 6 8 6 12 0s8-6 12 0" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="loading-logo">
+      <div class="monogram">PC</div>
+    </div>
+    <div class="loading-text">PITT CHARITY CUP</div>
+  </div>
+
+  <!-- ============ CUSTOM CURSOR ============ -->
+  <div class="custom-cursor" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" fill="#FF5C1A" opacity="0.9"/>
+      <path d="M5 12c2.5-4 5-4 7 0s5 4 7 0" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M5 12c2.5 4 5 4 7 0s5-4 7 0" stroke="#fff" stroke-width="1" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo" aria-label="Pitt Charity Cup — Home">
+      <div class="logo-badge">PC</div>
+      <span class="logo-text">PITT CHARITY CUP</span>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="tournament.html">Tournament</a>
+      <a href="register.html">Register</a>
+      <a href="sponsors.html">Sponsors</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a href="donate.html" class="btn-donate-nav btn-donate-nav-desktop">Donate Now 🧡</a>
+    </div>
+    <button class="hamburger" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Nav Overlay -->
+  <div class="mobile-nav">
+    <a href="about.html">About</a>
+    <a href="tournament.html">Tournament</a>
+    <a href="register.html">Register</a>
+    <a href="sponsors.html">Sponsors</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+    <a href="donate.html" class="btn-donate-nav">Donate Now 🧡</a>
+  </div>
+
+  <!-- ============ HERO SECTION ============ -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="parallax-bg"></div>
+    </div>
+    <div class="home-hero-decor" aria-hidden="true">PCC</div>
+    <div class="container">
+      <div class="hero-content reveal">
+        <h1 class="hero-title hero-title-massive">
+          PITT<br>
+          <span class="orange">CHARITY</span><br>
+          CUP 2026
+        </h1>
+        <p class="hero-description">
+          Compete for a cause. Turning passion for cricket into real impact by providing cricket equipment to kids in need. Play hard, give back, and help us grow the game for the next generation.
+        </p>
+        <div class="hero-badges">
+          <span class="badge-pill">📅 June 2026</span>
+          <span class="badge-pill">📍 Fairview Park, Bridgeville PA</span>
+          <span class="badge-pill">⚡ 7-Over Knockout Format</span>
+        </div>
+        <div class="hero-buttons">
+          <a href="register.html" class="btn btn-primary">Sign Up Now →</a>
+          <a href="donate.html" class="btn btn-ghost">Donate Now 🧡</a>
+        </div>
+
+        <!-- Countdown Timer -->
+        <div class="countdown">
+          <div class="countdown-label">TOURNAMENT STARTS IN</div>
+          <div class="countdown-boxes">
+            <div class="countdown-box">
+              <span class="countdown-value" id="cd-days">--</span>
+              <span class="countdown-unit">Days</span>
+            </div>
+            <div class="countdown-box">
+              <span class="countdown-value" id="cd-hours">--</span>
+              <span class="countdown-unit">Hours</span>
+            </div>
+            <div class="countdown-box">
+              <span class="countdown-value" id="cd-mins">--</span>
+              <span class="countdown-unit">Min</span>
+            </div>
+            <div class="countdown-box">
+              <span class="countdown-value" id="cd-secs">--</span>
+              <span class="countdown-unit">Sec</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MISSION SECTION ============ -->
+  <section class="section section-light section-divider-top" style="background: var(--white);">
+    <div class="container">
+      <div class="text-center reveal">
+        <div class="section-label">🏏 OUR MISSION</div>
+        <h2 class="section-title">CRICKET FOR A <em>Cause</em></h2>
+      </div>
+      <div class="mission-grid reveal-stagger" style="margin-top: 3rem;">
+        <!-- CARD 1 -->
+        <div class="glass-card" style="background: var(--navy); color: var(--white);">
+          <div class="glass-card-icon">🏏</div>
+          <h3>Access to Cricket Equipment</h3>
+          <!-- TODO: Replace with real description -->
+          <p>We believe every young player deserves quality equipment. Your support helps us provide bats, balls, pads, and gear to kids who otherwise couldn't afford them.</p>
+        </div>
+        <!-- CARD 2 -->
+        <div class="glass-card" style="background: var(--navy); color: var(--white);">
+          <div class="glass-card-icon">🌱</div>
+          <h3>Growing the Next Generation</h3>
+          <!-- TODO: Replace with real description -->
+          <p>Cricket is booming in Pittsburgh. We're here to nurture young talent, build a community around the sport, and ensure the next generation has every opportunity to play.</p>
+        </div>
+        <!-- CARD 3 -->
+        <div class="glass-card" style="background: var(--navy); color: var(--white);">
+          <div class="glass-card-icon">🤝</div>
+          <h3>Community-Driven Impact</h3>
+          <!-- TODO: Replace with real description -->
+          <p>Run entirely by high school students, the Pitt Charity Cup proves that young people can make a real difference. Every dollar raised goes directly to supporting youth cricket.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BY THE NUMBERS SECTION ============ -->
+  <section class="section section-dark">
+    <div class="container text-center">
+      <h2 class="section-title reveal" style="font-size: clamp(3rem, 7vw, 5rem);">BY THE NUMBERS</h2>
+      <!-- EDITABLE STATS — update values here -->
+      <div class="stats-grid reveal-stagger">
+        <div class="stat-box">
+          <div class="stat-icon">⚡</div>
+          <div class="stat-number" data-count="7">0</div>
+          <div class="stat-label">Overs Per Match</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-icon">👥</div>
+          <div class="stat-number" data-count="8">0</div>
+          <div class="stat-label">Players Per Team</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-icon">📅</div>
+          <div class="stat-number" data-count="1">0</div>
+          <div class="stat-label">Day Tournament</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-icon">💚</div>
+          <div class="stat-number" data-count="100%">0</div>
+          <div class="stat-label">Goes to Charity</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA SECTION ============ -->
+  <section class="cta-section section-gradient">
+    <div class="container reveal">
+      <h2 class="section-title">READY TO PLAY FOR A <em>Purpose?</em></h2>
+      <p class="section-subtitle mx-auto" style="text-align: center;">
+        Whether you're a player, donor, or sponsor — there's a place for you at the Pitt Charity Cup. Together, we can make a real difference in Pittsburgh.
+      </p>
+      <div class="cta-buttons">
+        <a href="register.html" class="btn btn-primary">Sign Up Now →</a>
+        <a href="donate.html" class="btn btn-primary">Donate Now 🧡</a>
+        <a href="about.html" class="btn btn-ghost-orange">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-badge-sm">PC</div>
+        <h3>PITT CHARITY CUP</h3>
+        <!-- TODO: Replace with real description about tournament -->
+        <p>Insert description about tournament here. The Pitt Charity Cup is a U18 charity cricket tournament dedicated to growing the game and giving back to the Pittsburgh community.</p>
+      </div>
+      <div>
+        <h4>QUICK LINKS</h4>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="tournament.html">Tournament</a>
+          <a href="register.html">Register</a>
+          <a href="donate.html">Donate</a>
+          <a href="sponsors.html">Sponsors</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div>
+        <h4>CONNECT</h4>
+        <div class="footer-social">
+          <!-- TODO: Replace with real Instagram handle -->
+          <a href="#" target="_blank" rel="noopener">📱 @Instagram account name</a>
+          <a href="mailto:pittsburghcharitycricket@gmail.com">📧 pittsburghcharitycricket@gmail.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Pitt Charity Cup. All rights reserved.</p>
+      <p>Made with 🧡 for the Pittsburgh community.</p>
+    </div>
+  </footer>
+
+  <!-- Scroll-to-Top Button -->
+  <button class="scroll-top" aria-label="Scroll to top">↑</button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
