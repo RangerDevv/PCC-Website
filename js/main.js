@@ -271,7 +271,7 @@ function animateCountUp(el) {
 
   function updateDonateButton() {
     if (donateBtn) {
-      donateBtn.textContent = `Donate $${selectedAmount} 🧡`;
+      donateBtn.innerHTML = `Donate $${selectedAmount} <i class="fa-solid fa-heart"></i>`;
     }
   }
 
