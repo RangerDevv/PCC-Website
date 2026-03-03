@@ -17,29 +17,6 @@ const CONFIG = {
 };
 
 // =============================================
-// LOADING SCREEN (shows every page load for now — toggle back later)
-// =============================================
-(function initLoadingScreen() {
-  // Temporarily disabled session check so you can always see the loading screen.
-  // To restore once-per-session behavior, uncomment the block below:
-  // if (sessionStorage.getItem('pcc_loaded')) {
-  //   const loader = document.querySelector('.loading-screen');
-  //   if (loader) loader.remove();
-  //   return;
-  // }
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      const loader = document.querySelector('.loading-screen');
-      if (loader) {
-        loader.classList.add('fade-out');
-        setTimeout(() => loader.remove(), 700);
-      }
-      // sessionStorage.setItem('pcc_loaded', 'true');
-    }, 3200);
-  });
-})();
-
-// =============================================
 // CUSTOM CURSOR (desktop only)
 // =============================================
 (function initCustomCursor() {
