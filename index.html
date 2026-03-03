@@ -14,18 +14,67 @@
 
   <!-- ============ LOADING SCREEN ============ -->
   <div class="loading-screen" aria-hidden="true">
-    <div class="loading-trail"></div>
-    <div class="loading-ball">
-      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="18" fill="#FF5C1A"/>
-        <path d="M8 20c4-6 8-6 12 0s8 6 12 0" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        <path d="M8 20c4 6 8 6 12 0s8-6 12 0" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      </svg>
+    <!-- Ambient floating particles -->
+    <div class="loader-particles">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
     </div>
-    <div class="loading-logo">
-      <div class="monogram">PC</div>
+
+    <!-- Motion trail behind the ball -->
+    <div class="loader-trail"></div>
+
+    <!-- The cricket ball -->
+    <div class="loader-ball">
+      <div class="loader-ball-inner">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <!-- Ball body with gradient -->
+          <defs>
+            <radialGradient id="ballGrad" cx="38%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="#FF8C42"/>
+              <stop offset="50%" stop-color="#FF5C1A"/>
+              <stop offset="100%" stop-color="#C23A00"/>
+            </radialGradient>
+            <filter id="ballShadow">
+              <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#FF5C1A" flood-opacity="0.6"/>
+            </filter>
+          </defs>
+          <circle cx="50" cy="50" r="46" fill="url(#ballGrad)" filter="url(#ballShadow)"/>
+          <!-- Seam line (the signature cricket ball stitching) -->
+          <path d="M12 50 C25 20, 45 20, 50 50 S75 80, 88 50" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.9"/>
+          <path d="M12 50 C25 80, 45 80, 50 50 S75 20, 88 50" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.9"/>
+          <!-- Cross stitches -->
+          <g class="stitches" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity="0.7">
+            <line x1="18" y1="38" x2="22" y2="42"/><line x1="24" y1="30" x2="28" y2="34"/>
+            <line x1="32" y1="25" x2="36" y2="29"/><line x1="40" y1="23" x2="44" y2="27"/>
+            <line x1="56" y1="23" x2="60" y2="27"/><line x1="64" y1="25" x2="68" y2="29"/>
+            <line x1="72" y1="30" x2="76" y2="34"/><line x1="78" y1="38" x2="82" y2="42"/>
+            <line x1="18" y1="62" x2="22" y2="58"/><line x1="24" y1="70" x2="28" y2="66"/>
+            <line x1="32" y1="75" x2="36" y2="71"/><line x1="40" y1="77" x2="44" y2="73"/>
+            <line x1="56" y1="77" x2="60" y2="73"/><line x1="64" y1="75" x2="68" y2="71"/>
+            <line x1="72" y1="70" x2="76" y2="66"/><line x1="78" y1="62" x2="82" y2="58"/>
+          </g>
+          <!-- Highlight / shine -->
+          <ellipse cx="36" cy="34" rx="12" ry="8" fill="#fff" opacity="0.13" transform="rotate(-25 36 34)"/>
+        </svg>
+      </div>
+      <!-- Glow ring that pulses -->
+      <div class="loader-ball-glow"></div>
     </div>
-    <div class="loading-text">PITT CHARITY CUP</div>
+
+    <!-- Burst particles on impact -->
+    <div class="loader-burst">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <!-- Brand reveal -->
+    <div class="loader-brand">
+      <div class="loader-monogram">PC</div>
+      <div class="loader-divider"></div>
+      <div class="loader-title">PITT CHARITY CUP</div>
+      <div class="loader-tagline">Compete for a cause.</div>
+    </div>
   </div>
 
   <!-- ============ CUSTOM CURSOR ============ -->
