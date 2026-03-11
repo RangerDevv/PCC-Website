@@ -13,7 +13,7 @@ const CONFIG = {
   venue: 'Fairview Park, Bridgeville, PA 15017',
   email: 'pittsburghcharitycricket@gmail.com',
   phone: '412-292-9572',
-  instagram: '@Instagram account name', // TODO: Replace with real Instagram handle
+  instagram: '@pittsburghcharitycup',
 };
 
 // =============================================
@@ -394,8 +394,19 @@ function animateCountUp(el) {
     const email = form.querySelector('[name="email"]')?.value || '';
     const message = form.querySelector('[name="message"]')?.value || '';
 
+    // Get selected amount
+    const activeBtn = document.querySelector('.amount-btn.active');
+    const customInput = document.querySelector('.custom-amount-input');
+    let amount = 25;
+    if (activeBtn && activeBtn.dataset.amount !== 'custom') {
+      amount = parseInt(activeBtn.dataset.amount);
+    } else if (customInput && parseInt(customInput.value) > 0) {
+      amount = parseInt(customInput.value);
+    }
+
     // TODO: Connect to a payment processor (Stripe, PayPal, etc.)
-    const mailtoLink = `mailto:${CONFIG.email}?subject=${encodeURIComponent('PCC 2026 Donation')}&body=${encodeURIComponent(`Donation from: ${name}\nEmail: ${email}\nMessage: ${message}`)}`;
-    window.location.href = mailtoLink;
+    // For now, redirect to thank-you page with donation details
+    const params = new URLSearchParams({ amount: amount, email: email });
+    window.location.href = 'thank-you.html?' + params.toString();
   });
 })();
