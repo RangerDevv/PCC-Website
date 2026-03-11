@@ -115,10 +115,20 @@
       const amount = params.get('amount');
       const email = params.get('email');
       const messageEl = document.getElementById('thank-you-message');
-      if (messageEl && amount && email) {
-        messageEl.textContent = 'Your $' + amount + ' donation will make a real difference. A confirmation will be sent to ' + email + '.';
-      } else if (messageEl && amount) {
-        messageEl.textContent = 'Your $' + amount + ' donation will make a real difference. A confirmation will be sent to your email.';
+
+      if (!messageEl) return;
+
+      // Validate amount is a positive number
+      const numAmount = parseFloat(amount);
+      const isValidAmount = !isNaN(numAmount) && numAmount > 0 && isFinite(numAmount);
+
+      // Basic email format validation
+      const isValidEmail = email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+      if (isValidAmount && isValidEmail) {
+        messageEl.textContent = 'Your $' + numAmount + ' donation will make a real difference. A confirmation will be sent to ' + email + '.';
+      } else if (isValidAmount) {
+        messageEl.textContent = 'Your $' + numAmount + ' donation will make a real difference. A confirmation will be sent to your email.';
       }
     })();
   </script>

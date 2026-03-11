@@ -1863,7 +1863,7 @@ textarea.form-input {
 }
 
 .rules-accordion.open .rules-accordion-content {
-  max-height: 600px;
+  max-height: 1000px;
 }
 
 .rules-accordion-list {

@@ -405,6 +405,7 @@ function animateCountUp(el) {
     }
 
     // TODO: Connect to a payment processor (Stripe, PayPal, etc.)
+    // NOTE: Server-side validation of the donation amount is required when integrating a payment processor.
     // For now, redirect to thank-you page with donation details
     const params = new URLSearchParams({ amount: amount, email: email });
     window.location.href = 'thank-you.html?' + params.toString();
