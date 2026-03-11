@@ -205,10 +205,10 @@ button, input, textarea, select { font-family: inherit; }
 .btn-donate-nav {
   background: var(--orange);
   color: var(--white-pure) !important;
-  padding: 0.65rem 1.75rem;
+  padding: 0.85rem 2rem;
   border-radius: var(--radius-pill);
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -220,6 +220,9 @@ button, input, textarea, select { font-family: inherit; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.4rem;
+  min-width: 140px;
+  min-height: 44px;
 }
 
 .btn-donate-nav:hover {
@@ -1159,6 +1162,10 @@ textarea.form-input {
   margin-top: 3rem;
 }
 
+.donate-layout-single {
+  margin-top: 3rem;
+}
+
 @media (max-width: 768px) {
   .donate-layout { grid-template-columns: 1fr; }
 }
@@ -1288,6 +1295,34 @@ textarea.form-input {
   animation: shimmer 4s ease infinite;
 }
 
+.tier-platinum-side {
+  background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 50%, #0a0a1a 100%);
+  border-color: #E5E4E2;
+  background-size: 200% 200%;
+  animation: shimmer 4s ease infinite;
+}
+
+.tier-platinum-side .tier-badge { color: #E5E4E2; }
+
+.tier-official {
+  background: linear-gradient(135deg, #1a0a00 0%, #2a1500 25%, #1a0a00 50%, #2a1500 75%, #1a0a00 100%);
+  border: 2px solid var(--orange);
+  grid-column: 1 / -1;
+  padding: 3rem;
+  background-size: 200% 200%;
+  animation: shimmer 4s ease infinite;
+}
+
+.tier-official .tier-badge {
+  color: var(--orange);
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+}
+
+.tier-official .tier-price {
+  font-size: 3.5rem;
+}
+
 @keyframes shimmer {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -1333,6 +1368,8 @@ textarea.form-input {
 @media (max-width: 768px) {
   .sponsor-tiers { grid-template-columns: 1fr; }
   .tier-platinum { grid-column: auto; }
+  .tier-platinum-side { grid-column: auto; }
+  .tier-official { grid-column: auto; }
 }
 
 /* --- PARTNERS SECTION --- */
@@ -1343,6 +1380,66 @@ textarea.form-input {
   padding: 4rem 2rem;
   text-align: center;
   margin-top: 2rem;
+}
+
+/* --- ORGANIZERS SECTION --- */
+.organizers-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+@media (max-width: 768px) {
+  .organizers-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .organizers-grid { grid-template-columns: 1fr; }
+}
+
+.organizer-card {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  border-radius: var(--radius-lg);
+  background: var(--navy);
+  border: 1px solid var(--glass-border);
+  transition: all var(--transition-med);
+}
+
+.organizer-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--orange);
+}
+
+.organizer-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  border: 3px solid var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  font-size: 2.5rem;
+  color: var(--text-muted);
+}
+
+.organizer-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.05em;
+  color: var(--white);
+  margin-bottom: 0.25rem;
+}
+
+.organizer-role {
+  font-size: 0.85rem;
+  color: var(--orange);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .partners-empty-icon {
@@ -1724,6 +1821,64 @@ textarea.form-input {
 
 .payment-note strong { color: var(--orange); }
 
+/* --- RULES ACCORDION (Registration page) --- */
+.rules-accordion {
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.rules-accordion-toggle {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: var(--glass-bg);
+  border: none;
+  color: var(--white);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background var(--transition-fast);
+}
+
+.rules-accordion-toggle:hover {
+  background: rgba(255, 92, 26, 0.1);
+}
+
+.rules-accordion-icon {
+  transition: transform var(--transition-fast);
+}
+
+.rules-accordion.open .rules-accordion-icon {
+  transform: rotate(180deg);
+}
+
+.rules-accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.rules-accordion.open .rules-accordion-content {
+  max-height: 1000px;
+}
+
+.rules-accordion-list {
+  padding: 1.25rem;
+  list-style: decimal;
+  padding-left: 2.5rem;
+}
+
+.rules-accordion-list li {
+  padding: 0.4rem 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
 /* Inner page hero - shorter */
 .hero-inner {
   min-height: 60vh;
@@ -1743,11 +1898,13 @@ textarea.form-input {
   font-size: 20rem;
   font-family: 'Bebas Neue', sans-serif;
   color: var(--white);
-  right: -5%;
+  right: 0;
   top: 10%;
   line-height: 1;
   pointer-events: none;
   user-select: none;
+  overflow: hidden;
+  max-width: 100%;
 }
 
 /* --- RESPONSIVE GLOBAL --- */

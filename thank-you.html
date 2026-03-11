@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gallery — Pitt Charity Cup 2026</title>
-  <meta name="description" content="Photo gallery from the Pitt Charity Cup 2026 — coming soon after tournament day!">
+  <title>Thank You — Pitt Charity Cup 2026</title>
+  <meta name="description" content="Thank you for your generous donation to the Pitt Charity Cup 2026.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -29,7 +29,7 @@
       <a href="tournament.html">Tournament</a>
       <a href="register.html">Register</a>
       <a href="sponsors.html">Sponsors</a>
-      <a href="gallery.html" class="active">Gallery</a>
+      <a href="gallery.html">Gallery</a>
       <a href="contact.html">Contact</a>
       <a href="donate.html" class="btn-donate-nav btn-donate-nav-desktop">Donate Now <i class="fa-solid fa-heart"></i></a>
     </div>
@@ -40,7 +40,7 @@
     <a href="tournament.html">Tournament</a>
     <a href="register.html">Register</a>
     <a href="sponsors.html">Sponsors</a>
-    <a href="gallery.html" class="active">Gallery</a>
+    <a href="gallery.html">Gallery</a>
     <a href="contact.html">Contact</a>
     <a href="donate.html" class="btn-donate-nav">Donate Now <i class="fa-solid fa-heart"></i></a>
   </div>
@@ -49,20 +49,24 @@
   <section class="hero hero-inner">
     <div class="hero-bg"></div>
     <div class="hero-content reveal">
-      <div class="hero-label">MEMORIES</div>
-      <h1 class="hero-title hero-title-large"><span class="orange">GALLERY</span></h1>
-      <p class="hero-description mx-auto" style="text-align:center;">Relive the best moments from the Pitt Charity Cup.</p>
+      <div class="hero-label">THANK YOU</div>
+      <h1 class="hero-title hero-title-large">YOUR DONATION <span class="orange">MATTERS</span></h1>
     </div>
   </section>
 
-  <!-- ============ COMING SOON ============ -->
+  <!-- ============ THANK YOU CONTENT ============ -->
   <section class="section section-dark">
-    <div class="container">
-      <!-- FUTURE: Replace this section with embedded stream or photo grid -->
-      <div class="coming-soon-card reveal">
-        <div class="coming-soon-icon"><i class="fa-solid fa-camera"></i></div>
-        <h3>Photos & highlights coming after tournament day!</h3>
-        <p>Check back soon for action shots, celebration photos, and unforgettable moments from the Pitt Charity Cup.</p>
+    <div class="container" style="display: flex; justify-content: center;">
+      <div class="form-card reveal" style="width: 100%; max-width: 600px; text-align: center;">
+        <div style="font-size: 4rem; margin-bottom: 1.5rem;"><i class="fa-solid fa-heart" style="color: var(--orange);"></i></div>
+        <h2 class="section-title" style="font-size: 2rem; margin-bottom: 1rem;">THANK <em>You!</em></h2>
+        <p id="thank-you-message" style="font-size: 1.1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 2rem;">
+          Your generous donation will make a real difference. A confirmation will be sent to your email.
+        </p>
+        <div class="cta-buttons" style="justify-content: center;">
+          <a href="index.html" class="btn btn-primary">Return Home →</a>
+          <a href="donate.html" class="btn btn-ghost">Make Another Donation <i class="fa-solid fa-heart"></i></a>
+        </div>
       </div>
     </div>
   </section>
@@ -104,5 +108,29 @@
 
   <button class="scroll-top" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
   <script src="js/main.js"></script>
+  <script>
+    // Parse URL parameters to display dynamic donation info
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const amount = params.get('amount');
+      const email = params.get('email');
+      const messageEl = document.getElementById('thank-you-message');
+
+      if (!messageEl) return;
+
+      // Validate amount is a positive number
+      const numAmount = parseFloat(amount);
+      const isValidAmount = !isNaN(numAmount) && numAmount > 0 && isFinite(numAmount);
+
+      // Basic email format validation
+      const isValidEmail = email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+      if (isValidAmount && isValidEmail) {
+        messageEl.textContent = 'Your $' + numAmount + ' donation will make a real difference. A confirmation will be sent to ' + email + '.';
+      } else if (isValidAmount) {
+        messageEl.textContent = 'Your $' + numAmount + ' donation will make a real difference. A confirmation will be sent to your email.';
+      }
+    })();
+  </script>
 </body>
 </html>
