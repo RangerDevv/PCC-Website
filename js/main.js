@@ -1,62 +1,22 @@
 /* ============================================================
-   PITT CHARITY CUP 2026 — Main JavaScript
+   PITTSBURGH CHARITY CUP 2026 — Main JavaScript
    ============================================================ */
 
 // =============================================
 // CONFIG — All editable values live here
 // =============================================
 const CONFIG = {
-  tournamentDate: new Date('2026-06-01T09:00:00'),
+  tournamentDate: new Date('2026-06-26T09:00:00'),
   goalAmount: 1000,
   raisedAmount: 0,       // UPDATE RAISED AMOUNT HERE
   donorCount: 0,         // UPDATE DONOR COUNT HERE
-  venue: 'Fairview Park, Bridgeville, PA 15017',
+  venue: 'Fairview Park, 288 Recreation Rd, Bridgeville, PA 15017',
   email: 'pittsburghcharitycricket@gmail.com',
   phone: '412-292-9572',
   instagram: '@pittsburghcharitycup',
 };
 
-// =============================================
-// CUSTOM CURSOR (desktop only)
-// =============================================
-(function initCustomCursor() {
-  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
-
-  const cursor = document.querySelector('.custom-cursor');
-  if (!cursor) return;
-
-  let mouseX = 0, mouseY = 0;
-  let cursorX = 0, cursorY = 0;
-
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
-
-  function animateCursor() {
-    cursorX += (mouseX - cursorX) * 0.15;
-    cursorY += (mouseY - cursorY) * 0.15;
-    cursor.style.transform = `translate(${cursorX - 18}px, ${cursorY - 18}px)`;
-    requestAnimationFrame(animateCursor);
-  }
-
-  animateCursor();
-
-  // Cursor hover state — scale up & change color on interactive elements
-  const interactiveSelectors = 'a, button, input, textarea, select, .btn, .btn-donate-nav, .amount-btn, .glass-card, .sponsor-tier-card, .rule-card, .info-card, .donate-tier, .contact-item, .money-card, [role="button"]';
-
-  document.addEventListener('mouseover', (e) => {
-    if (e.target.closest(interactiveSelectors)) {
-      cursor.classList.add('hovering');
-    }
-  });
-
-  document.addEventListener('mouseout', (e) => {
-    if (e.target.closest(interactiveSelectors)) {
-      cursor.classList.remove('hovering');
-    }
-  });
-})();
+const FORM_ENDPOINT = `https://formsubmit.co/ajax/${CONFIG.email}`;
 
 // =============================================
 // NAVBAR — Shrink on scroll, active page
@@ -88,6 +48,66 @@ const CONFIG = {
     }
   });
 })();
+
+// =============================================
+// NEXT PAGE CTA
+// =============================================
+(function initNextPageCta() {
+  const footer = document.querySelector('.footer');
+  if (!footer) return;
+
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  const nextMap = {
+    'about.html': { href: 'tournament.html', label: 'Next: Tournament Details' },
+    'tournament.html': { href: 'register.html', label: 'Next: Player Registration' },
+    'register.html': { href: 'donate.html', label: 'Next: Donations' },
+    'donate.html': { href: 'sponsors.html', label: 'Next: Sponsorships' },
+    'sponsors.html': { href: 'gallery.html', label: 'Next: Gallery' },
+    'gallery.html': { href: 'contact.html', label: 'Next: Contact Us' },
+    'contact.html': { href: 'about.html', label: 'Next: About The Team' },
+    'thank-you.html': { href: 'index.html', label: 'Back to Home' }
+  };
+
+  const next = nextMap[currentPage];
+  if (!next) return;
+
+  const section = document.createElement('section');
+  section.className = 'next-page-cta';
+  section.innerHTML = `
+    <div class="next-page-cta-inner">
+      <div class="next-page-cta-copy">Continue through the tournament site:</div>
+      <a href="${next.href}" class="btn btn-primary">${next.label} <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  `;
+
+  footer.parentNode.insertBefore(section, footer);
+})();
+
+async function submitToEmailBackend(subject, fields) {
+  const body = new URLSearchParams();
+  body.append('_subject', subject);
+  body.append('_template', 'table');
+  body.append('_captcha', 'false');
+
+  Object.entries(fields).forEach(([key, value]) => {
+    body.append(key, String(value || ''));
+  });
+
+  const response = await fetch(FORM_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/json'
+    },
+    body: body.toString()
+  });
+
+  if (!response.ok) {
+    throw new Error('Form backend request failed');
+  }
+
+  return response.json();
+}
 
 // =============================================
 // MOBILE NAV TOGGLE
@@ -338,13 +358,13 @@ function animateCountUp(el) {
 })();
 
 // =============================================
-// CONTACT FORM (mailto fallback)
+// CONTACT FORM
 // =============================================
 (function initContactForm() {
   const form = document.getElementById('contact-form');
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const name = form.querySelector('[name="name"]')?.value || '';
@@ -352,11 +372,21 @@ function animateCountUp(el) {
     const subject = form.querySelector('[name="subject"]')?.value || '';
     const message = form.querySelector('[name="message"]')?.value || '';
 
-    // Open mailto with pre-filled fields
-    // TODO: Replace with Formspree or Netlify Forms endpoint for server-side handling
-    // Example: form.action = "https://formspree.io/f/YOUR_FORM_ID"; form.method = "POST"; form.submit();
-    const mailtoLink = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
-    window.location.href = mailtoLink;
+    try {
+      await submitToEmailBackend(subject, {
+        formType: 'Contact Form',
+        name,
+        email,
+        subject,
+        message
+      });
+
+      alert('Message sent successfully.');
+      form.reset();
+    } catch (_err) {
+      const mailtoLink = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
+      window.location.href = mailtoLink;
+    }
   });
 })();
 
@@ -367,16 +397,33 @@ function animateCountUp(el) {
   const form = document.getElementById('register-form');
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const firstName = form.querySelector('[name="firstName"]')?.value || '';
     const lastName = form.querySelector('[name="lastName"]')?.value || '';
+    const dob = form.querySelector('[name="dob"]')?.value || '';
     const email = form.querySelector('[name="email"]')?.value || '';
+    const phone = form.querySelector('[name="phone"]')?.value || '';
+    const waiverAgreement = form.querySelector('[name="waiverAgreement"]')?.checked ? 'Yes' : 'No';
 
-    // TODO: Connect to a backend or form service (Formspree, Google Forms, etc.)
-    const mailtoLink = `mailto:${CONFIG.email}?subject=${encodeURIComponent(`PCC 2026 Registration: ${firstName} ${lastName}`)}&body=${encodeURIComponent(`Registration for: ${firstName} ${lastName}\nEmail: ${email}`)}`;
-    window.location.href = mailtoLink;
+    try {
+      await submitToEmailBackend(`Pittsburgh Charity Cup 2026 Registration: ${firstName} ${lastName}`, {
+        formType: 'Player Registration',
+        firstName,
+        lastName,
+        dob,
+        email,
+        phone,
+        waiverAgreement
+      });
+
+      alert('Registration submitted successfully.');
+      form.reset();
+    } catch (_err) {
+      const mailtoLink = `mailto:${CONFIG.email}?subject=${encodeURIComponent(`Pittsburgh Charity Cup 2026 Registration: ${firstName} ${lastName}`)}&body=${encodeURIComponent(`Registration for: ${firstName} ${lastName}\nDOB: ${dob}\nEmail: ${email}\nPhone: ${phone}\nWaiver agreed: ${waiverAgreement}`)}`;
+      window.location.href = mailtoLink;
+    }
   });
 })();
 
@@ -387,7 +434,7 @@ function animateCountUp(el) {
   const form = document.getElementById('donate-form');
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const name = form.querySelector('[name="name"]')?.value || '';
@@ -404,9 +451,18 @@ function animateCountUp(el) {
       amount = parseInt(customInput.value);
     }
 
-    // TODO: Connect to a payment processor (Stripe, PayPal, etc.)
-    // NOTE: Server-side validation of the donation amount is required when integrating a payment processor.
-    // For now, redirect to thank-you page with donation details
+    try {
+      await submitToEmailBackend('New Donation Intent', {
+        formType: 'Donation Form',
+        name,
+        email,
+        amount,
+        message
+      });
+    } catch (_err) {
+      // Fallback still continues to thank-you page.
+    }
+
     const params = new URLSearchParams({ amount: amount, email: email });
     window.location.href = 'thank-you.html?' + params.toString();
   });
