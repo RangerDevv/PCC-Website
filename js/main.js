@@ -158,6 +158,40 @@ async function submitToEmailBackend(subject, fields) {
 // COUNT-UP ANIMATION
 // =============================================
 function animateCountUp(el) {
+// =============================================
+// PAYMENT FORM HANDLER (payment.html)
+// =============================================
+document.addEventListener('DOMContentLoaded', function () {
+  const paymentForm = document.getElementById('payment-form');
+  if (!paymentForm) return;
+
+  // Replace with your Stripe Payment Link URL
+  const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/test_XXXXXXXXXXXX'; // TODO: Replace with your real link
+
+  paymentForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+
+    // Basic validation
+    if (!name || !email || !phone) {
+      showFormMessage('Please fill in all fields.', true);
+      return;
+    }
+
+    // Optionally, send info to Formspree or FormSubmit here
+    // For now, just redirect to Stripe Payment Link
+    window.location.href = STRIPE_PAYMENT_LINK;
+  });
+
+  function showFormMessage(msg, isError) {
+    const msgEl = document.getElementById('form-message');
+    msgEl.textContent = msg;
+    msgEl.style.color = isError ? 'red' : 'green';
+    msgEl.style.display = 'block';
+  }
+});
   const target = el.getAttribute('data-count');
   const suffix = el.getAttribute('data-suffix') || '';
   const isPercent = target.includes('%');
