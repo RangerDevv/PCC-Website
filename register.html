@@ -89,8 +89,8 @@
 
           <!-- Payment Information Note -->
           <div class="payment-note">
-            <p><strong><i class="fa-solid fa-credit-card"></i> Payment Information</strong></p>
-            <p>Payment details to be confirmed — you'll be contacted after registration.</p>
+            <p><strong><i class="fa-solid fa-credit-card"></i> Registration Fee: $15.00</strong></p>
+            <p>After submitting this form you'll be taken to a secure Stripe checkout to pay the $15 registration fee.</p>
           </div>
 
           <!-- Waiver Document -->
@@ -117,7 +117,7 @@
             </label>
           </div>
 
-          <button type="submit" class="btn-submit">Submit Registration <i class="fa-solid fa-baseball"></i></button>
+          <button type="submit" class="btn-submit">Continue to Payment <i class="fa-solid fa-arrow-right"></i></button>
         </form>
       </div>
     </div>
@@ -160,5 +160,38 @@
 
   <button class="scroll-top" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
   <script src="js/main.js"></script>
+  <script>
+    // Intercept registration form and redirect to payment.html with details as query params
+    (function () {
+      var form = document.getElementById('register-form');
+      if (!form) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var firstName = document.getElementById('reg-firstname').value.trim();
+        var lastName  = document.getElementById('reg-lastname').value.trim();
+        var email     = document.getElementById('reg-email').value.trim();
+        var phone     = document.getElementById('reg-phone').value.trim();
+        var dob       = document.getElementById('reg-dob').value;
+        var waiver    = form.querySelector('[name="waiverAgreement"]').checked;
+
+        if (!firstName || !lastName || !email || !phone || !dob) {
+          alert('Please fill in all required fields.');
+          return;
+        }
+        if (!waiver) {
+          alert('Please agree to the waiver document to continue.');
+          return;
+        }
+
+        var params = new URLSearchParams({
+          name:  firstName + ' ' + lastName,
+          email: email,
+          phone: phone,
+          dob:   dob
+        });
+        window.location.href = 'payment.html?' + params.toString();
+      });
+    }());
+  </script>
 </body>
 </html>

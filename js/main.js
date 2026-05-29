@@ -314,53 +314,9 @@ document.addEventListener('DOMContentLoaded', function () {
 // =============================================
 // DONATION AMOUNT SELECTOR
 // =============================================
-(function initDonation() {
-  const amountBtns = document.querySelectorAll('.amount-btn');
-  const customInput = document.querySelector('.custom-amount-input');
-  const donateBtn = document.querySelector('.btn-donate-amount');
-
-  if (!amountBtns.length) return;
-
-  let selectedAmount = 25;
-
-  function updateDonateButton() {
-    if (donateBtn) {
-      donateBtn.innerHTML = `Donate $${selectedAmount} <i class="fa-solid fa-heart"></i>`;
-    }
-  }
-
-  amountBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      amountBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      if (btn.dataset.amount === 'custom') {
-        if (customInput) {
-          customInput.classList.add('show');
-          customInput.focus();
-        }
-      } else {
-        if (customInput) customInput.classList.remove('show');
-        selectedAmount = parseInt(btn.dataset.amount);
-        updateDonateButton();
-      }
-    });
-  });
-
-  if (customInput) {
-    customInput.addEventListener('input', () => {
-      const val = parseInt(customInput.value);
-      if (val > 0) {
-        selectedAmount = val;
-        updateDonateButton();
-      }
-    });
-  }
-
-  // Set initial active
-  if (amountBtns[0]) amountBtns[0].classList.add('active');
-  updateDonateButton();
-})();
+// =============================================
+// DONATION AMOUNT SELECTOR — handled by Stripe script in donate.html
+// =============================================
 
 // =============================================
 // PROGRESS BAR ANIMATION
@@ -462,42 +418,5 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 
 // =============================================
-// DONATION FORM
+// DONATION FORM — handled by Stripe script in donate.html
 // =============================================
-(function initDonateForm() {
-  const form = document.getElementById('donate-form');
-  if (!form) return;
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const name = form.querySelector('[name="name"]')?.value || '';
-    const email = form.querySelector('[name="email"]')?.value || '';
-    const message = form.querySelector('[name="message"]')?.value || '';
-
-    // Get selected amount
-    const activeBtn = document.querySelector('.amount-btn.active');
-    const customInput = document.querySelector('.custom-amount-input');
-    let amount = 25;
-    if (activeBtn && activeBtn.dataset.amount !== 'custom') {
-      amount = parseInt(activeBtn.dataset.amount);
-    } else if (customInput && parseInt(customInput.value) > 0) {
-      amount = parseInt(customInput.value);
-    }
-
-    try {
-      await submitToEmailBackend('New Donation Intent', {
-        formType: 'Donation Form',
-        name,
-        email,
-        amount,
-        message
-      });
-    } catch (_err) {
-      // Fallback still continues to thank-you page.
-    }
-
-    const params = new URLSearchParams({ amount: amount, email: email });
-    window.location.href = 'thank-you.html?' + params.toString();
-  });
-})();

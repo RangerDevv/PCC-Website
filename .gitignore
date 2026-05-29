@@ -1,0 +1,15 @@
+# === SECRET FILES — NEVER COMMIT ===
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,28 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment</title>
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment — Pittsburgh Charity Cup 2026</title>
+  <meta name="description" content="Securely pay your registration fee for the Pittsburgh Charity Cup 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Stripe.js — loads securely from Stripe's CDN, never self-host -->
+  <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Make a Payment</h1>
-        <form id="payment-form">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#ffffff"/><path d="M5 12c2.5-4 5-4 7 0s5 4 7 0" stroke="#000" stroke-width="1.2" fill="none" stroke-linecap="round"/><path d="M5 12c2.5 4 5 4 7 0s5-4 7 0" stroke="#000" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
+  </div>
 
-            <label for="phone">Phone Number:</label>
-            <input type="tel" id="phone" name="phone" required>
-
-            <button type="submit">Pay Now</button>
-        </form>
-        <p id="form-message" style="color: green; display: none;"></p>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo" aria-label="Pittsburgh Charity Cup — Home">
+      <div class="logo-badge">PC</div>
+      <span class="logo-text">PITTSBURGH CHARITY CUP</span>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="tournament.html">Tournament</a>
+      <a href="register.html">Register</a>
+      <a href="sponsors.html">Sponsors</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a href="donate.html" class="btn-donate-nav btn-donate-nav-desktop">Donate Now <i class="fa-solid fa-heart"></i></a>
     </div>
-    <script src="js/main.js"></script>
+    <button class="hamburger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-nav">
+    <a href="about.html">About</a>
+    <a href="tournament.html">Tournament</a>
+    <a href="register.html">Register</a>
+    <a href="sponsors.html">Sponsors</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+    <a href="donate.html" class="btn-donate-nav">Donate Now <i class="fa-solid fa-heart"></i></a>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero hero-inner">
+    <div class="hero-bg"></div>
+    <div class="hero-content reveal">
+      <div class="hero-label">SECURE CHECKOUT</div>
+      <h1 class="hero-title hero-title-large">COMPLETE <span class="orange">PAYMENT</span></h1>
+      <p class="hero-description mx-auto" style="text-align:center;">Complete your registration fee payment securely below. Your card details are encrypted and handled directly by Stripe — we never see your card number.</p>
+    </div>
+  </section>
+
+  <!-- ============ PAYMENT SECTION ============ -->
+  <section class="section section-dark">
+    <div class="container" style="display:flex; justify-content:center;">
+      <div style="width:100%; max-width:600px;">
+
+        <!-- Payment summary card -->
+        <div class="form-card reveal" style="margin-bottom:1.5rem;">
+          <div class="section-label" style="margin-bottom:1rem;"><i class="fa-solid fa-receipt"></i> Order Summary</div>
+          <div class="stripe-summary-row">
+            <span>Pittsburgh Charity Cup 2026 — Registration Fee</span>
+            <span id="summary-amount" class="stripe-summary-amount">$15.00</span>
+          </div>
+          <div class="stripe-summary-divider"></div>
+          <div class="stripe-summary-row">
+            <strong>Total</strong>
+            <strong id="summary-total" class="stripe-summary-amount">$15.00</strong>
+          </div>
+        </div>
+
+        <!-- Payment form card -->
+        <div class="form-card reveal">
+          <div class="section-label" style="margin-bottom:1.5rem;"><i class="fa-solid fa-credit-card"></i> Payment Details</div>
+
+          <form id="payment-form" novalidate>
+
+            <!-- Name -->
+            <div class="form-group">
+              <label class="form-label" for="pay-name">Full Name *</label>
+              <input type="text" class="form-input" id="pay-name" name="name" required placeholder="Name as it appears on card" autocomplete="cc-name">
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+              <label class="form-label" for="pay-email">Email Address *</label>
+              <input type="email" class="form-input" id="pay-email" name="email" required placeholder="you@example.com" autocomplete="email">
+            </div>
+
+            <!-- Phone -->
+            <div class="form-group">
+              <label class="form-label" for="pay-phone">Phone Number *</label>
+              <input type="tel" class="form-input" id="pay-phone" name="phone" required placeholder="(412) 555-0123" autocomplete="tel">
+            </div>
+
+            <!-- Stripe Card Element -->
+            <div class="form-group">
+              <label class="form-label">Card Details *</label>
+              <div id="card-element" class="stripe-card-element">
+                <!-- Stripe.js injects card fields here -->
+              </div>
+              <div id="card-errors" class="stripe-card-errors" role="alert" aria-live="assertive"></div>
+            </div>
+
+            <!-- Secure payment badge -->
+            <div class="stripe-secure-badge">
+              <i class="fa-solid fa-lock"></i>
+              <span>Payments secured by <strong>Stripe</strong> — PCI DSS compliant. Your card number is never sent to our server.</span>
+            </div>
+
+            <button type="submit" id="submit-btn" class="btn-submit stripe-submit-btn">
+              <span id="submit-btn-text"><i class="fa-solid fa-lock"></i> Pay $15.00</span>
+              <span id="submit-btn-spinner" class="stripe-spinner" style="display:none;" aria-hidden="true"></span>
+            </button>
+
+            <div id="payment-result" class="stripe-result" style="display:none;" role="alert" aria-live="assertive"></div>
+          </form>
+        </div>
+
+        <!-- Powered by Stripe logo row -->
+        <div class="stripe-powered-row reveal">
+          <i class="fa-brands fa-stripe" style="font-size:1.5rem; color:#635BFF;"></i>
+          <span>Powered by Stripe</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-badge-sm">PC</div>
+        <h3>PITTSBURGH CHARITY CUP</h3>
+        <p>A youth-led charity cricket tournament in Pittsburgh, PA. We bring together young athletes, families, and local businesses to grow the sport and give back to the community — one match at a time.</p>
+      </div>
+      <div>
+        <h4>QUICK LINKS</h4>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="tournament.html">Tournament</a>
+          <a href="register.html">Register</a>
+          <a href="donate.html">Donate</a>
+          <a href="sponsors.html">Sponsors</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div>
+        <h4>CONNECT</h4>
+        <div class="footer-social">
+          <a href="https://instagram.com/pittsburghcharitycup" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> @pittsburghcharitycup</a>
+          <a href="mailto:pittsburghcharitycricket@gmail.com"><i class="fa-solid fa-envelope"></i> pittsburghcharitycricket@gmail.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Pittsburgh Charity Cup. All rights reserved.</p>
+      <p>Made with <i class="fa-solid fa-heart" style="color: var(--orange);"></i> for the Pittsburgh community.</p>
+    </div>
+  </footer>
+
+  <button class="scroll-top" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
+  <script src="js/main.js"></script>
+  <script>
+    // ============================================================
+    // STRIPE PAYMENT — Pittsburgh Charity Cup 2026
+    // Publishable key: safe to expose in client-side code.
+    // SECRET key (sk_live_...): NEVER put here — server-side only.
+    // ============================================================
+    (function () {
+      'use strict';
+
+      // Amount in cents (e.g. 1500 = $15.00). Update to match your fee.
+      var AMOUNT_CENTS = 1500;
+      var CURRENCY = 'usd';
+      var AMOUNT_DISPLAY = '$15.00';
+
+      // ── Update displayed amounts ─────────────────────────────
+      document.getElementById('summary-amount').textContent = AMOUNT_DISPLAY;
+      document.getElementById('summary-total').textContent = AMOUNT_DISPLAY;
+      document.getElementById('submit-btn-text').innerHTML =
+        '<i class="fa-solid fa-lock"></i> Pay ' + AMOUNT_DISPLAY;
+
+      // ── Pre-fill fields from URL query params (passed from register.html) ──
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('name'))  document.getElementById('pay-name').value  = params.get('name');
+      if (params.get('email')) document.getElementById('pay-email').value = params.get('email');
+      if (params.get('phone')) document.getElementById('pay-phone').value = params.get('phone');
+
+      // ── Stripe initialisation ────────────────────────────────
+      // Publishable key — safe for client-side use.
+      var stripe = Stripe('pk_test_51T9tBMGuouL9IFq4Rjy0vjq4mQxlM62NUBnhTIviNZfLVdFymDPWeEISZoyioFPHpGIt4hHhCcBTeQ1rH2IdZJeX00xNCzWO1o');
+
+      var elements = stripe.elements({
+        fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap' }]
+      });
+
+      var cardElement = elements.create('card', {
+        style: {
+          base: {
+            color: '#F5F5F0',
+            fontFamily: '"Plus Jakarta Sans", sans-serif',
+            fontSize: '16px',
+            fontWeight: '500',
+            '::placeholder': { color: 'rgba(245,245,240,0.35)' },
+            iconColor: '#FF5C1A'
+          },
+          invalid: {
+            color: '#FF5C1A',
+            iconColor: '#FF5C1A'
+          }
+        },
+        hidePostalCode: false
+      });
+
+      cardElement.mount('#card-element');
+
+      // Show card validation errors in real time
+      cardElement.on('change', function (event) {
+        var errorEl = document.getElementById('card-errors');
+        errorEl.textContent = event.error ? event.error.message : '';
+      });
+
+      // ── Form submission ──────────────────────────────────────
+      var form = document.getElementById('payment-form');
+      var submitBtn = document.getElementById('submit-btn');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var name  = document.getElementById('pay-name').value.trim();
+        var email = document.getElementById('pay-email').value.trim();
+        var phone = document.getElementById('pay-phone').value.trim();
+
+        if (!name || !email || !phone) {
+          showResult('error', 'Please fill in all required fields.');
+          return;
+        }
+
+        setLoading(true);
+
+        // ── STEP 1: Ask your server to create a PaymentIntent ──
+        // Your server must:
+        //   1. Receive a POST with { amount, currency, name, email }
+        //   2. Call stripe.paymentIntents.create({ amount, currency }) with the secret key
+        //   3. Return JSON: { clientSecret: "pi_xxx_secret_xxx" }
+        //
+        // Replace '/api/create-payment-intent' with your real endpoint.
+        // Calls the Express server running on the same origin
+        fetch('/api/create-payment-intent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            amount: AMOUNT_CENTS,
+            currency: CURRENCY,
+            name: name,
+            email: email,
+            phone: phone
+          })
+        })
+          .then(function (res) {
+            if (!res.ok) return res.json().then(function (d) { throw new Error(d.error || ('Server error: ' + res.status)); });
+            return res.json();
+          })
+          .then(function (data) {
+            if (!data.clientSecret) { throw new Error('No clientSecret returned from server.'); }
+
+            // ── STEP 2: Confirm card payment on the client ─────
+            return stripe.confirmCardPayment(data.clientSecret, {
+              payment_method: {
+                card: cardElement,
+                billing_details: { name: name, email: email, phone: phone }
+              }
+            });
+          })
+          .then(function (result) {
+            if (result.error) {
+              // Payment declined or authentication failed
+              showResult('error', result.error.message);
+            } else if (result.paymentIntent && result.paymentIntent.status === 'succeeded') {
+              // Payment successful — redirect to thank-you page
+              window.location.href = 'thank-you.html?payment=success';
+            }
+          })
+          .catch(function (err) {
+            showResult('error', err.message || 'An unexpected error occurred. Please try again.');
+          })
+          .finally(function () {
+            setLoading(false);
+          });
+      });
+
+      // ── Helpers ──────────────────────────────────────────────
+      function setLoading(isLoading) {
+        submitBtn.disabled = isLoading;
+        document.getElementById('submit-btn-text').style.display  = isLoading ? 'none'  : 'flex';
+        document.getElementById('submit-btn-spinner').style.display = isLoading ? 'block' : 'none';
+      }
+
+      function showResult(type, message) {
+        var el = document.getElementById('payment-result');
+        el.style.display = 'block';
+        el.className = 'stripe-result stripe-result-' + type;
+        el.innerHTML = (type === 'error' ? '<i class="fa-solid fa-circle-xmark"></i> ' : '<i class="fa-solid fa-circle-check"></i> ') + message;
+      }
+    }());
+  </script>
 </body>
 </html>
