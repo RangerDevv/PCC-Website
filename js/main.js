@@ -6,7 +6,7 @@
 // CONFIG — All editable values live here
 // =============================================
 const CONFIG = {
-  tournamentDate: new Date('2026-06-26T09:00:00'),
+  tournamentDate: new Date('2026-06-27T09:00:00'),
   goalAmount: 1000,
   raisedAmount: 0,       // UPDATE RAISED AMOUNT HERE
   donorCount: 0,         // UPDATE DONOR COUNT HERE
@@ -380,42 +380,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 })();
 
-// =============================================
-// REGISTRATION FORM
-// =============================================
-(function initRegForm() {
-  const form = document.getElementById('register-form');
-  if (!form) return;
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const firstName = form.querySelector('[name="firstName"]')?.value || '';
-    const lastName = form.querySelector('[name="lastName"]')?.value || '';
-    const dob = form.querySelector('[name="dob"]')?.value || '';
-    const email = form.querySelector('[name="email"]')?.value || '';
-    const phone = form.querySelector('[name="phone"]')?.value || '';
-    const waiverAgreement = form.querySelector('[name="waiverAgreement"]')?.checked ? 'Yes' : 'No';
-
-    try {
-      await submitToEmailBackend(`Pittsburgh Charity Cup 2026 Registration: ${firstName} ${lastName}`, {
-        formType: 'Player Registration',
-        firstName,
-        lastName,
-        dob,
-        email,
-        phone,
-        waiverAgreement
-      });
-
-      alert('Registration submitted successfully.');
-      form.reset();
-    } catch (_err) {
-      const mailtoLink = `mailto:${CONFIG.email}?subject=${encodeURIComponent(`Pittsburgh Charity Cup 2026 Registration: ${firstName} ${lastName}`)}&body=${encodeURIComponent(`Registration for: ${firstName} ${lastName}\nDOB: ${dob}\nEmail: ${email}\nPhone: ${phone}\nWaiver agreed: ${waiverAgreement}`)}`;
-      window.location.href = mailtoLink;
-    }
-  });
-})();
 
 // =============================================
 // DONATION FORM — handled by Stripe script in donate.html
